@@ -59,13 +59,8 @@ export default function PetSetupScreen() {
         >
           <View className="items-center">
             <Text className="text-6xl mb-3">😺</Text>
-            <View className="flex-row gap-1 mb-2">
-              <View className={`w-2 h-2 rounded-full ${selectedPet === 'cat' ? 'bg-white' : 'bg-gray-800'}`} />
-              <View className={`w-2 h-2 rounded-full ${selectedPet === 'cat' ? 'bg-white' : 'bg-gray-800'}`} />
-            </View>
-            <View className={`w-10 h-1 rounded-full mb-4 ${selectedPet === 'cat' ? 'bg-white' : 'bg-gray-800'}`} />
             <Text className={`text-lg font-semibold ${selectedPet === 'cat' ? 'text-white' : 'text-gray-800'}`}>
-              Cat
+              Meow
             </Text>
           </View>
         </TouchableOpacity>
@@ -79,13 +74,8 @@ export default function PetSetupScreen() {
         >
           <View className="items-center">
             <Text className="text-6xl mb-3">🐶</Text>
-            <View className="flex-row gap-1 mb-2">
-              <View className={`w-2 h-2 rounded-full ${selectedPet === 'dog' ? 'bg-white' : 'bg-gray-800'}`} />
-              <View className={`w-2 h-2 rounded-full ${selectedPet === 'dog' ? 'bg-white' : 'bg-gray-800'}`} />
-            </View>
-            <View className={`w-10 h-1 rounded-full mb-4 ${selectedPet === 'dog' ? 'bg-white' : 'bg-gray-800'}`} />
             <Text className={`text-lg font-semibold ${selectedPet === 'dog' ? 'text-white' : 'text-gray-800'}`}>
-              Dog
+              Woof
             </Text>
           </View>
         </TouchableOpacity>

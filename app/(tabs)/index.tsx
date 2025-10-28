@@ -30,26 +30,20 @@ export default function HomeScreen() {
         {/* Pet Icons */}
         <View className="flex-row gap-8 items-center justify-center">
           {/* Cat Icon */}
-          <View className="w-48 h-48 rounded-full bg-pink-400 items-center justify-center shadow-lg">
-            <Text className="text-7xl">😺</Text>
-            <View className="mt-2 flex-row gap-2">
-              <View className="w-10 h-1 bg-white rounded-full" />
-            </View>
+          <View className="w-40 h-40 rounded-full bg-pink-400 items-center justify-center shadow-lg">
+            <Text className="text-5xl">😺</Text>
           </View>
 
           {/* Dog Icon */}
-          <View className="w-48 h-48 rounded-full bg-sky-400 items-center justify-center shadow-lg">
-            <Text className="text-7xl">🐶</Text>
-            <View className="mt-2 flex-row gap-2">
-              <View className="w-10 h-1 bg-white rounded-full" />
-            </View>
+          <View className="w-40 h-40 rounded-full bg-sky-400 items-center justify-center shadow-lg">
+            <Text className="text-5xl">🐶</Text>
           </View>
         </View>
 
         {/* Tagline & Button */}
         <View className="w-full items-center gap-8">
           <Text className="text-xl text-gray-700 text-center">
-            Track your pet's activities with joy
+            Take a break with your pet — time to move and stretch!
           </Text>
 
           <TouchableOpacity
