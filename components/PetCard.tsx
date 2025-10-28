@@ -37,15 +37,15 @@ export const PetCard: React.FC<PetCardProps> = ({
 
     const handleDelete = () => {
         Alert.alert(
-            '刪除寵物',
-            `確定要刪除 ${pet.name} 嗎？這將會同時刪除所有相關的計時器。`,
+            'Delete Pet',
+            `Are you sure you want to delete ${pet.name}? This will also delete all related timers.`,
             [
                 {
-                    text: '取消',
+                    text: 'Cancel',
                     style: 'cancel',
                 },
                 {
-                    text: '刪除',
+                    text: 'Delete',
                     style: 'destructive',
                     onPress: () => onDeletePet(pet.id),
                 },
@@ -136,7 +136,7 @@ export const PetCard: React.FC<PetCardProps> = ({
                 disabled={isEditing}
             >
                 <Text className="text-gray-500 text-sm">
-                    {isEditing ? '編輯模式中...' : '點擊管理計時器'}
+                    {isEditing ? 'Editing mode...' : 'Tap to manage timers'}
                 </Text>
             </TouchableOpacity>
         </View>
