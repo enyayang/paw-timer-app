@@ -3,6 +3,7 @@ import { useApp } from '@/contexts/AppContext';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import * as Haptics from 'expo-haptics';
 
 export default function TimersScreen() {
   const router = useRouter();
@@ -16,6 +17,18 @@ export default function TimersScreen() {
           updateTimer(timer.id, {
             remainingSeconds: timer.remainingSeconds - 1,
           });
+
+          // Check if timer just reached 0
+          if (timer.remainingSeconds === 1) {
+            // Trigger 3-second haptic feedback when timer completes
+            const vibrationPattern = async () => {
+              for (let i = 0; i < 6; i++) {
+                await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                await new Promise(resolve => setTimeout(resolve, 500));
+              }
+            };
+            vibrationPattern();
+          }
         } else if (timer.isRunning && timer.remainingSeconds === 0) {
           // Stop timer when it reaches 0
           updateTimer(timer.id, { isRunning: false });
