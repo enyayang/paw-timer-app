@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npm install:*)",
-      "Bash(npx tailwindcss:*)"
+      "Bash(npx tailwindcss:*)",
+      "Read(//Users/enyayang/Desktop/**)"
     ],
     "deny": [],
     "ask": []

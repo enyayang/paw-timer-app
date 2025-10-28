@@ -1,0 +1,135 @@
+import { TimerCard } from '@/components/TimerCard';
+import { useApp } from '@/contexts/AppContext';
+import { Audio } from 'expo-av';
+import * as Haptics from 'expo-haptics';
+import { useRouter } from 'expo-router';
+import { useEffect } from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+
+export default function TimersScreen() {
+  const router = useRouter();
+  const { timers, updateTimer, deleteTimer } = useApp();
+
+  // Play sound when timer completes
+  const playCompletionSound = async (petType: 'dog' | 'cat') => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        petType === 'dog'
+          ? require('@/assets/sounds/dog-bark.mp3')
+          : require('@/assets/sounds/cat-meow.mp3')
+      );
+      await sound.playAsync();
+      // Unload sound after playing
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    } catch (error) {
+      console.log('Error playing sound:', error);
+      // Silently fail if sound files are not found
+    }
+  };
+
+  // Auto countdown for running timers
+  useEffect(() => {
+    const interval = setInterval(() => {
+      timers.forEach((timer) => {
+        if (timer.isRunning && timer.remainingSeconds > 0) {
+          updateTimer(timer.id, {
+            remainingSeconds: timer.remainingSeconds - 1,
+          });
+
+          // Check if timer just reached 0
+          if (timer.remainingSeconds === 1) {
+            // Play sound based on timer's pet type
+            playCompletionSound(timer.petType);
+
+            // Trigger 3-second haptic feedback when timer completes
+            const vibrationPattern = async () => {
+              for (let i = 0; i < 6; i++) {
+                await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                await new Promise(resolve => setTimeout(resolve, 500));
+              }
+            };
+            vibrationPattern();
+          }
+        } else if (timer.isRunning && timer.remainingSeconds === 0) {
+          // Stop timer when it reaches 0
+          updateTimer(timer.id, { isRunning: false });
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timers, updateTimer]);
+
+  const handlePause = (timerId: string) => {
+    const timer = timers.find(t => t.id === timerId);
+    if (timer) {
+      updateTimer(timerId, { isRunning: !timer.isRunning });
+    }
+  };
+
+  const handleReset = (timerId: string) => {
+    const timer = timers.find(t => t.id === timerId);
+    if (timer) {
+      updateTimer(timerId, {
+        remainingSeconds: timer.totalSeconds,
+        isRunning: false
+      });
+    }
+  };
+
+  const handleDelete = (timerId: string) => {
+    deleteTimer(timerId);
+  };
+
+
+  return (
+    <View className="flex-1 bg-[#FEFBEF]">
+      {/* Header */}
+      <View className="items-center pt-24 pb-6 px-6">
+        <Text className="text-3xl font-bold text-gray-800 mb-2">
+          All Timers
+        </Text>
+        <Text className="text-base text-gray-600">
+          Manage all your pet timers in one place
+        </Text>
+      </View>
+
+      {/* Timers List */}
+      <ScrollView className="flex-1 px-6 pb-6" showsVerticalScrollIndicator={false}>
+        {timers.length === 0 ? (
+          <View className="flex-1 items-center justify-center py-20">
+            <Text className="text-gray-500 text-lg mb-2">No timers yet</Text>
+            <Text className="text-gray-400 text-sm text-center px-8">
+              Click "Add New Timer" below to create your first timer
+            </Text>
+          </View>
+        ) : (
+          timers.map((timer) => (
+            <TimerCard
+              key={timer.id}
+              timer={timer}
+              onPause={handlePause}
+              onReset={handleReset}
+              onDelete={handleDelete}
+            />
+          ))
+        )}
+
+        {/* Add New Timer Button */}
+        <TouchableOpacity
+          className="bg-[#1A2332] rounded-full py-5 items-center flex-row justify-center gap-2 active:opacity-70 mb-20 mt-4"
+          onPress={() => router.push('/add-timer')}
+        >
+          <Text className="text-white text-2xl">+</Text>
+          <Text className="text-white text-lg font-semibold">
+            Add New Timer
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
+  );
+}

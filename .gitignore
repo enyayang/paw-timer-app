@@ -41,3 +41,9 @@ app-example
 # generated native folders
 /ios
 /android
+
+# Large media files
+*.mp4
+*.mov
+*.avi
+*.mkv
