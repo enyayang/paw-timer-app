@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
-import { useState } from 'react';
-import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useApp } from '@/contexts/AppContext';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useState } from 'react';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 
 export default function PetSetupScreen() {
@@ -52,9 +52,8 @@ export default function PetSetupScreen() {
       <View className="flex-row gap-4 mb-8">
         {/* Cat Card */}
         <TouchableOpacity
-          className={`flex-1 rounded-3xl p-6 items-center ${
-            selectedPet === 'cat' ? 'bg-pink-400' : 'bg-white'
-          }`}
+          className={`flex-1 rounded-3xl p-6 items-center ${selectedPet === 'cat' ? 'bg-pink-400' : 'bg-white'
+            }`}
           onPress={() => setSelectedPet('cat')}
           activeOpacity={0.7}
         >
@@ -73,9 +72,8 @@ export default function PetSetupScreen() {
 
         {/* Dog Card */}
         <TouchableOpacity
-          className={`flex-1 rounded-3xl p-6 items-center ${
-            selectedPet === 'dog' ? 'bg-sky-400' : 'bg-white'
-          }`}
+          className={`flex-1 rounded-3xl p-6 items-center ${selectedPet === 'dog' ? 'bg-sky-400' : 'bg-white'
+            }`}
           onPress={() => setSelectedPet('dog')}
           activeOpacity={0.7}
         >

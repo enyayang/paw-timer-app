@@ -1,10 +1,10 @@
 import { TimerCard } from '@/components/TimerCard';
 import { useApp } from '@/contexts/AppContext';
+import { Audio } from 'expo-av';
+import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import * as Haptics from 'expo-haptics';
-import { Audio } from 'expo-av';
 
 export default function TimersScreen() {
   const router = useRouter();
@@ -42,8 +42,8 @@ export default function TimersScreen() {
 
           // Check if timer just reached 0
           if (timer.remainingSeconds === 1) {
-            // Play sound based on timer's sound file setting
-            playCompletionSound(timer.soundFile);
+            // Play sound based on timer's pet type
+            playCompletionSound(timer.petType);
 
             // Trigger 3-second haptic feedback when timer completes
             const vibrationPattern = async () => {
