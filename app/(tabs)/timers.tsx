@@ -1,11 +1,30 @@
 import { TimerCard } from '@/components/TimerCard';
 import { useApp } from '@/contexts/AppContext';
 import { useRouter } from 'expo-router';
+import { useEffect } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 export default function TimersScreen() {
   const router = useRouter();
   const { timers, updateTimer, deleteTimer } = useApp();
+
+  // Auto countdown for running timers
+  useEffect(() => {
+    const interval = setInterval(() => {
+      timers.forEach((timer) => {
+        if (timer.isRunning && timer.remainingSeconds > 0) {
+          updateTimer(timer.id, {
+            remainingSeconds: timer.remainingSeconds - 1,
+          });
+        } else if (timer.isRunning && timer.remainingSeconds === 0) {
+          // Stop timer when it reaches 0
+          updateTimer(timer.id, { isRunning: false });
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timers, updateTimer]);
 
   const handlePause = (timerId: string) => {
     const timer = timers.find(t => t.id === timerId);
