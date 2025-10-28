@@ -1,6 +1,6 @@
 import { useApp } from '@/contexts/AppContext';
 import { useRouter } from 'expo-router';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 export default function PetSelectionScreen() {
   const router = useRouter();
@@ -34,7 +34,7 @@ export default function PetSelectionScreen() {
       {/* Header */}
       <View className="items-center mb-6 px-6">
         <Text className="text-3xl font-bold text-gray-800 mb-2">
-          🐾 Select a Pet
+          Select a Pet
         </Text>
         <Text className="text-base text-gray-600 text-center">
           Choose which pet this timer is for
@@ -45,7 +45,11 @@ export default function PetSelectionScreen() {
       <ScrollView className="flex-1 px-6" showsVerticalScrollIndicator={false}>
         {pets.length === 0 ? (
           <View className="bg-white rounded-3xl p-8 items-center mb-4">
-            <Text className="text-6xl mb-4">🐾</Text>
+            <Image
+              source={require('@/assets/images/icon-mypets.png')}
+              className="w-16 h-16 mb-4"
+              resizeMode="contain"
+            />
             <Text className="text-xl font-bold text-gray-800 mb-2 text-center">
               No Pets Yet
             </Text>
@@ -71,11 +75,20 @@ export default function PetSelectionScreen() {
               >
                 <View className={`w-20 h-20 rounded-full items-center justify-center mr-4 ${pet.type === 'dog' ? 'bg-sky-400' : 'bg-pink-400'
                   }`}>
-                  <Text className="text-4xl">{pet.type === 'dog' ? '🐶' : '😺'}</Text>
-                  <View className="flex-row gap-1 mt-1">
-                    <View className="w-1.5 h-1.5 rounded-full bg-white" />
-                    <View className="w-1.5 h-1.5 rounded-full bg-white" />
-                  </View>
+                  {pet.type === 'dog' ? (
+                    <Image
+                      source={require('@/assets/images/icon-woof.png')}
+                      className="w-12 h-12"
+                      resizeMode="contain"
+                    />
+                  ) : (
+                    <Image
+                      source={require('@/assets/images/icon-meow.png')}
+                      className="w-12 h-12"
+                      resizeMode="contain"
+                    />
+                  )}
+
                 </View>
                 <View className="flex-1">
                   <Text className="text-gray-800 text-xl font-semibold">

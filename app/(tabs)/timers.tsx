@@ -91,7 +91,7 @@ export default function TimersScreen() {
       {/* Header */}
       <View className="items-center pt-24 pb-6 px-6">
         <Text className="text-3xl font-bold text-gray-800 mb-2">
-          📝 All Timers
+          All Timers
         </Text>
         <Text className="text-base text-gray-600">
           Manage all your pet timers in one place

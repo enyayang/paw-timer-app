@@ -1,12 +1,32 @@
 import { useApp } from '@/contexts/AppContext';
 import { ResizeMode, Video } from 'expo-av';
 import { useRouter } from 'expo-router';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
   const router = useRouter();
   const { pets } = useApp();
   const hasPets = pets.length > 0;
+
+  // Typing effect state
+  const [displayedText, setDisplayedText] = useState('');
+  const fullText = 'Paw Timer';
+  const typingSpeed = 150; // milliseconds per character
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const timer = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(timer);
+      }
+    }, typingSpeed);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const handlePetClick = (petId: string) => {
     // Navigate to timers tab with selected pet
@@ -24,7 +44,7 @@ export default function HomeScreen() {
         {/* Title */}
         <View className="mt-28">
           <Text className="text-2xl font-semibold text-gray-800 text-center">
-            🐾 Paw Timer
+            {displayedText}
           </Text>
         </View>
 
@@ -83,7 +103,19 @@ export default function HomeScreen() {
             <View className="flex-row items-center mb-3">
               <View className={`w-20 h-20 rounded-full items-center justify-center mr-4 ${pet.type === 'dog' ? 'bg-sky-400' : 'bg-pink-400'
                 }`}>
-                <Text className="text-4xl">{pet.type === 'dog' ? '🐶' : '😺'}</Text>
+                {pet.type === 'dog' ? (
+                  <Image
+                    source={require('@/assets/images/icon-woof.png')}
+                    className="w-12 h-12"
+                    resizeMode="contain"
+                  />
+                ) : (
+                  <Image
+                    source={require('@/assets/images/icon-meow.png')}
+                    className="w-12 h-12"
+                    resizeMode="contain"
+                  />
+                )}
               </View>
               <View>
                 <Text className="text-gray-800 text-2xl font-semibold mb-1">

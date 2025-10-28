@@ -1,7 +1,7 @@
 import { useApp } from '@/contexts/AppContext';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 
 export default function PetSetupScreen() {
@@ -58,7 +58,11 @@ export default function PetSetupScreen() {
           activeOpacity={0.7}
         >
           <View className="items-center">
-            <Text className="text-6xl mb-3">😺</Text>
+            <Image
+              source={require('@/assets/images/icon-meow.png')}
+              className="w-16 h-16 mb-3"
+              resizeMode="contain"
+            />
             <Text className={`text-lg font-semibold ${selectedPet === 'cat' ? 'text-white' : 'text-gray-800'}`}>
               Meow
             </Text>
@@ -73,7 +77,11 @@ export default function PetSetupScreen() {
           activeOpacity={0.7}
         >
           <View className="items-center">
-            <Text className="text-6xl mb-3">🐶</Text>
+            <Image
+              source={require('@/assets/images/icon-woof.png')}
+              className="w-16 h-16 mb-3"
+              resizeMode="contain"
+            />
             <Text className={`text-lg font-semibold ${selectedPet === 'dog' ? 'text-white' : 'text-gray-800'}`}>
               Woof
             </Text>

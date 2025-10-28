@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 interface TimerCardProps {
     timer: {
@@ -40,7 +40,19 @@ export const TimerCard: React.FC<TimerCardProps> = ({
                     {/* Pet Icon */}
                     <View className={`w-16 h-16 rounded-full items-center justify-center mr-4 ${timer.petType === 'dog' ? 'bg-sky-400' : 'bg-pink-400'
                         }`}>
-                        <Text className="text-3xl">{timer.petType === 'dog' ? '🐶' : '😺'}</Text>
+                        {timer.petType === 'dog' ? (
+                            <Image
+                                source={require('@/assets/images/icon-woof.png')}
+                                className="w-12 h-12"
+                                resizeMode="contain"
+                            />
+                        ) : (
+                            <Image
+                                source={require('@/assets/images/icon-meow.png')}
+                                className="w-12 h-12"
+                                resizeMode="contain"
+                            />
+                        )}
                     </View>
 
                     {/* Pet & Task Info */}

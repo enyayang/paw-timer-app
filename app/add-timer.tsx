@@ -114,7 +114,7 @@ export default function TimerSetupScreen() {
       {/* Header */}
       <View className="items-center mb-6 px-6">
         <Text className="text-3xl font-bold text-gray-800 mb-2">
-          ⏰ New Timer
+          New Timer
         </Text>
         <Text className="text-base text-gray-600 text-center">
           Set up a timer for your pet's activity
@@ -132,7 +132,19 @@ export default function TimerSetupScreen() {
           >
             <View className={`w-20 h-20 rounded-full items-center justify-center mr-4 ${selectedPet.type === 'dog' ? 'bg-sky-400' : 'bg-pink-400'
               }`}>
-              <Text className="text-4xl">{selectedPet.type === 'dog' ? '🐶' : '😺'}</Text>
+              {selectedPet.type === 'dog' ? (
+                <Image
+                  source={require('@/assets/images/icon-woof.png')}
+                  className="w-12 h-12"
+                  resizeMode="contain"
+                />
+              ) : (
+                <Image
+                  source={require('@/assets/images/icon-meow.png')}
+                  className="w-12 h-12"
+                  resizeMode="contain"
+                />
+              )}
             </View>
             <View className="flex-1">
               <Text className="text-gray-500 text-sm mb-1">Pet Name</Text>
