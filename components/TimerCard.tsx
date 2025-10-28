@@ -33,7 +33,7 @@ export const TimerCard: React.FC<TimerCardProps> = ({
     };
 
     return (
-        <View className="bg-white rounded-3xl p-6 mb-4 shadow-lg">
+        <View className="bg-white rounded-3xl p-6 mb-4">
             {/* Timer Header */}
             <View className="flex-row items-center justify-between mb-4">
                 <View className="flex-row items-center">
