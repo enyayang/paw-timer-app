@@ -53,14 +53,17 @@ export default function SettingsScreen() {
         <View className="bg-white rounded-3xl p-6 mb-4">
           <Text className="text-gray-800 text-lg font-bold mb-4">About</Text>
 
-          <View className="py-3 border-b border-gray-100">
+          <TouchableOpacity
+            className="py-3 border-b border-gray-100"
+            onPress={() => Linking.openURL('https://www.instagram.com/doggy.oreooo')}
+          >
             <Text className="text-gray-800 text-base font-semibold">
               Developer
             </Text>
-            <Text className="text-gray-500 text-sm mt-1">
+            <Text className="text-blue-500 text-sm mt-1 underline">
               Enya & doggy oreoo
             </Text>
-          </View>
+          </TouchableOpacity>
 
           <TouchableOpacity className="py-3 border-b border-gray-100">
             <Text className="text-gray-800 text-base font-semibold">
