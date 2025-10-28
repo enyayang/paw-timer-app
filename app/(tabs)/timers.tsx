@@ -61,7 +61,7 @@ export default function TimersScreen() {
       </View>
 
       {/* Timers List */}
-      <ScrollView className="flex-1 px-6" showsVerticalScrollIndicator={false}>
+      <ScrollView className="flex-1 px-6 pb-6" showsVerticalScrollIndicator={false}>
         {timers.length === 0 ? (
           <View className="flex-1 items-center justify-center py-20">
             <Text className="text-gray-500 text-lg mb-2">No timers yet</Text>
@@ -80,12 +80,10 @@ export default function TimersScreen() {
             />
           ))
         )}
-      </ScrollView>
 
-      {/* Add New Timer Button */}
-      <View className="px-6 pb-6 mb-20">
+        {/* Add New Timer Button */}
         <TouchableOpacity
-          className="bg-[#1A2332] rounded-full py-5 items-center flex-row justify-center gap-2 active:opacity-70"
+          className="bg-[#1A2332] rounded-full py-5 items-center flex-row justify-center gap-2 active:opacity-70 mb-20 mt-4"
           onPress={() => router.push('/add-timer')}
         >
           <Text className="text-white text-2xl">+</Text>
@@ -93,7 +91,7 @@ export default function TimersScreen() {
             Add New Timer
           </Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </View>
   );
 }
