@@ -1,7 +1,7 @@
 import { useApp } from '@/contexts/AppContext';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function TimerSetupScreen() {
   const router = useRouter();
@@ -75,9 +75,13 @@ export default function TimerSetupScreen() {
 
         <View className="flex-1 items-center justify-center px-6">
           <View className="bg-white rounded-3xl p-8 items-center">
-            <Text className="text-6xl mb-4">🐾</Text>
+            <Image
+              source={require('../assets/images/icon-mypets.png')}
+              style={{ width: 72, height: 72, marginBottom: 16 }}
+              resizeMode="contain"
+            />
             <Text className="text-2xl font-bold text-gray-800 mb-4 text-center">
-              No Pets Yet
+              Add Your First Pet
             </Text>
             <Text className="text-gray-600 text-center mb-8">
               Please add a pet first before creating a timer
