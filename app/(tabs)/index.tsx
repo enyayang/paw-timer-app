@@ -1,4 +1,5 @@
 import { useApp } from '@/contexts/AppContext';
+import { ResizeMode, Video } from 'expo-av';
 import { useRouter } from 'expo-router';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
@@ -19,7 +20,7 @@ export default function HomeScreen() {
   // Welcome screen (no pets yet)
   if (!hasPets) {
     return (
-      <View className="flex-1 items-center justify-between bg-[#E8E8E8] px-8 py-16">
+      <View className="flex-1 items-center justify-between bg-[#FEFBEF] px-8 py-16">
         {/* Title */}
         <View className="mt-28">
           <Text className="text-2xl font-semibold text-gray-800 text-center">
@@ -27,17 +28,16 @@ export default function HomeScreen() {
           </Text>
         </View>
 
-        {/* Pet Icons */}
-        <View className="flex-row gap-8 items-center justify-center">
-          {/* Cat Icon */}
-          <View className="w-40 h-40 rounded-full bg-pink-400 items-center justify-center shadow-lg">
-            <Text className="text-5xl">😺</Text>
-          </View>
-
-          {/* Dog Icon */}
-          <View className="w-40 h-40 rounded-full bg-sky-400 items-center justify-center shadow-lg">
-            <Text className="text-5xl">🐶</Text>
-          </View>
+        {/* Intro Video */}
+        <View className="w-full items-center justify-center px-0">
+          <Video
+            source={require('../../assets/images/video.mp4')}
+            style={{ width: '100%', height: 240, borderRadius: 24 }}
+            resizeMode={ResizeMode.CONTAIN}
+            shouldPlay
+            isLooping
+            isMuted
+          />
         </View>
 
         {/* Tagline & Button */}
@@ -61,7 +61,7 @@ export default function HomeScreen() {
 
   // My Pets screen (has pets)
   return (
-    <View className="flex-1 bg-[#E8E8E8]">
+    <View className="flex-1 bg-[#FEFBEF]">
       {/* Header */}
       <View className="items-center pt-24 pb-6 px-6">
         <Text className="text-3xl font-bold text-gray-800 mb-2">

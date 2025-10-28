@@ -2,7 +2,7 @@ import { Text, View } from 'react-native';
 
 export default function ExploreScreen() {
   return (
-    <View className="flex-1 items-center justify-center bg-[#E8E8E8]">
+    <View className="flex-1 items-center justify-center bg-[#FEFBEF]">
       <Text className="text-2xl font-bold text-gray-800 mb-4">
         🚀 Explore
       </Text>

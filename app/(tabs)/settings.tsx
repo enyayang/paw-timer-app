@@ -36,7 +36,7 @@ export default function SettingsScreen() {
   };
 
   return (
-    <View className="flex-1 bg-[#E8E8E8]">
+    <View className="flex-1 bg-[#FEFBEF]">
       {/* Header */}
       <View className="items-center pt-24 pb-6 px-6">
         <Text className="text-3xl font-bold text-gray-800 mb-2">

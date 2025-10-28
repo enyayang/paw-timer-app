@@ -37,7 +37,7 @@ export default function PetSetupScreen() {
   };
 
   return (
-    <View className="flex-1 bg-[#E8E8E8] px-6 pt-24 pb-8">
+    <View className="flex-1 bg-[#FEFBEF] px-6 pt-24 pb-8">
       {/* Header */}
       <View className="items-center mb-8">
         <Text className="text-3xl font-bold text-gray-800 mb-2">

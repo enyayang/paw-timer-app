@@ -1,6 +1,6 @@
 import { useApp } from '@/contexts/AppContext';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function TimerSetupScreen() {
@@ -64,7 +64,7 @@ export default function TimerSetupScreen() {
   // If no pets exist, show message to add pet first
   if (pets.length === 0) {
     return (
-      <View className="flex-1 bg-[#E8E8E8]">
+      <View className="flex-1 bg-[#FEFBEF]">
         <TouchableOpacity
           className="flex-row items-center px-6 pt-16 pb-4"
           onPress={() => router.back()}
@@ -97,7 +97,7 @@ export default function TimerSetupScreen() {
   }
 
   return (
-    <View className="flex-1 bg-[#E8E8E8]">
+    <View className="flex-1 bg-[#FEFBEF]">
       {/* Back Button */}
       <TouchableOpacity
         className="flex-row items-center px-6 pt-16 pb-4"

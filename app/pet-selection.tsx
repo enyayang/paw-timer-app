@@ -21,7 +21,7 @@ export default function PetSelectionScreen() {
   };
 
   return (
-    <View className="flex-1 bg-[#E8E8E8]">
+    <View className="flex-1 bg-[#FEFBEF]">
       {/* Back Button */}
       <TouchableOpacity
         className="flex-row items-center px-6 pt-16 pb-4"
