@@ -85,7 +85,7 @@ export default function HomeScreen() {
       {/* Header */}
       <View className="items-center pt-24 pb-6 px-6">
         <Text className="text-3xl font-bold text-gray-800 mb-2">
-          🐾 My Pets
+          My Pets
         </Text>
         <Text className="text-base text-gray-600">
           Select a pet or add a new one

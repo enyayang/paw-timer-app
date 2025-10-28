@@ -106,7 +106,7 @@ export const TimerCard: React.FC<TimerCardProps> = ({
                     onPress={() => onPause(timer.id)}
                 >
                     <Text className="text-white text-xl">
-                        {timer.isRunning ? '⏸️' : '▶️'}
+                        {timer.isRunning ? '⏸︎' : '▶'}
                     </Text>
                     <Text className="text-white font-semibold text-base">
                         {timer.isRunning ? 'Pause' : 'Resume'}
@@ -118,7 +118,7 @@ export const TimerCard: React.FC<TimerCardProps> = ({
                     className="flex-1 bg-gray-200 rounded-full py-4 items-center flex-row justify-center gap-2 active:opacity-70"
                     onPress={() => onReset(timer.id)}
                 >
-                    <Text className="text-gray-600 text-xl">🔄</Text>
+                    <Text className="text-gray-600 text-xl">↻</Text>
                     <Text className="text-gray-600 font-semibold text-base">
                         Reset
                     </Text>
