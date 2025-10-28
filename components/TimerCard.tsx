@@ -41,10 +41,6 @@ export const TimerCard: React.FC<TimerCardProps> = ({
                     <View className={`w-16 h-16 rounded-full items-center justify-center mr-4 ${timer.petType === 'dog' ? 'bg-sky-400' : 'bg-pink-400'
                         }`}>
                         <Text className="text-3xl">{timer.petType === 'dog' ? '🐶' : '😺'}</Text>
-                        <View className="flex-row gap-1 mt-1">
-                            <View className="w-1.5 h-1.5 rounded-full bg-white" />
-                            <View className="w-1.5 h-1.5 rounded-full bg-white" />
-                        </View>
                     </View>
 
                     {/* Pet & Task Info */}
