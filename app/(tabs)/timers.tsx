@@ -4,10 +4,32 @@ import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import { Audio } from 'expo-av';
 
 export default function TimersScreen() {
   const router = useRouter();
   const { timers, updateTimer, deleteTimer } = useApp();
+
+  // Play sound when timer completes
+  const playCompletionSound = async (petType: 'dog' | 'cat') => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        petType === 'dog'
+          ? require('@/assets/sounds/dog-bark.mp3')
+          : require('@/assets/sounds/cat-meow.mp3')
+      );
+      await sound.playAsync();
+      // Unload sound after playing
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    } catch (error) {
+      console.log('Error playing sound:', error);
+      // Silently fail if sound files are not found
+    }
+  };
 
   // Auto countdown for running timers
   useEffect(() => {
@@ -20,6 +42,9 @@ export default function TimersScreen() {
 
           // Check if timer just reached 0
           if (timer.remainingSeconds === 1) {
+            // Play sound based on timer's sound file setting
+            playCompletionSound(timer.soundFile);
+
             // Trigger 3-second haptic feedback when timer completes
             const vibrationPattern = async () => {
               for (let i = 0; i < 6; i++) {

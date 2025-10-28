@@ -3,6 +3,22 @@ import { useState } from 'react';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useApp } from '@/contexts/AppContext';
 
+// Sound options for each pet type
+const SOUND_OPTIONS = {
+  dog: [
+    { value: 'none', label: 'No Sound' },
+    { value: 'dog-bark-01.mp3', label: 'Dog Bark 1' },
+    { value: 'dog-bark-02.mp3', label: 'Dog Bark 2' },
+    { value: 'dog-bark-03.mp3', label: 'Dog Bark 3' },
+  ],
+  cat: [
+    { value: 'none', label: 'No Sound' },
+    { value: 'cat-meow-01.mp3', label: 'Cat Meow 1' },
+    { value: 'cat-meow-02.mp3', label: 'Cat Meow 2' },
+    { value: 'cat-meow-03.mp3', label: 'Cat Meow 3' },
+  ],
+};
+
 export default function PetSetupScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
@@ -10,6 +26,7 @@ export default function PetSetupScreen() {
 
   const [selectedPet, setSelectedPet] = useState<'cat' | 'dog'>('cat');
   const [petName, setPetName] = useState('');
+  const [selectedSound, setSelectedSound] = useState<string>('none');
 
   const handleAddPet = () => {
     if (!petName.trim()) {
@@ -20,6 +37,7 @@ export default function PetSetupScreen() {
     const newPet = addPet({
       name: petName.trim(),
       type: selectedPet,
+      soundFile: selectedSound,
     });
 
     // Check if we came from pet-selection (to add timer) or from home
@@ -93,7 +111,7 @@ export default function PetSetupScreen() {
       </View>
 
       {/* Pet Name Input */}
-      <View className="bg-white rounded-3xl p-6 mb-8">
+      <View className="bg-white rounded-3xl p-6 mb-4">
         <Text className="text-gray-800 font-semibold mb-3 text-base">
           Pet Name
         </Text>
@@ -104,6 +122,42 @@ export default function PetSetupScreen() {
           value={petName}
           onChangeText={setPetName}
         />
+      </View>
+
+      {/* Sound Selection */}
+      <View className="bg-white rounded-3xl p-6 mb-8">
+        <Text className="text-gray-800 font-semibold mb-3 text-base">
+          Completion Sound
+        </Text>
+        <View className="gap-2">
+          {SOUND_OPTIONS[selectedPet].map((option) => (
+            <TouchableOpacity
+              key={option.value}
+              className={`flex-row items-center py-3 px-4 rounded-2xl ${
+                selectedSound === option.value ? 'bg-gray-100' : 'bg-gray-50'
+              }`}
+              onPress={() => setSelectedSound(option.value)}
+              activeOpacity={0.7}
+            >
+              <View className={`w-5 h-5 rounded-full border-2 mr-3 items-center justify-center ${
+                selectedSound === option.value
+                  ? selectedPet === 'dog' ? 'border-sky-400' : 'border-pink-400'
+                  : 'border-gray-300'
+              }`}>
+                {selectedSound === option.value && (
+                  <View className={`w-3 h-3 rounded-full ${
+                    selectedPet === 'dog' ? 'bg-sky-400' : 'bg-pink-400'
+                  }`} />
+                )}
+              </View>
+              <Text className={`text-base ${
+                selectedSound === option.value ? 'text-gray-800 font-semibold' : 'text-gray-600'
+              }`}>
+                {option.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
 
       {/* Action Buttons */}

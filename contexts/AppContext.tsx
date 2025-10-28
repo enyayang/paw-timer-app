@@ -4,6 +4,7 @@ export interface Pet {
   id: string;
   name: string;
   type: 'cat' | 'dog';
+  soundFile: string; // 'none' or 'dog-bark-01.mp3', 'cat-meow-01.mp3', etc.
 }
 
 export interface Timer {
@@ -15,6 +16,7 @@ export interface Timer {
   totalSeconds: number;
   remainingSeconds: number;
   isRunning: boolean;
+  soundFile: string;
 }
 
 interface AppContextType {
@@ -44,11 +46,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const addTimer = (timer: Omit<Timer, 'id' | 'remainingSeconds' | 'isRunning'>) => {
+    // Find the pet to get sound file info
+    const pet = pets.find(p => p.id === timer.petId);
+
     const newTimer: Timer = {
       ...timer,
       id: Date.now().toString(),
       remainingSeconds: timer.totalSeconds,
       isRunning: true,
+      soundFile: pet?.soundFile || 'none',
     };
     setTimers((prev) => [...prev, newTimer]);
   };
