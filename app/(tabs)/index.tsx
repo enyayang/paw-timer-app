@@ -2,11 +2,12 @@ import { useApp } from '@/contexts/AppContext';
 import { ResizeMode, Video } from 'expo-av';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { PetCard } from '../../components/PetCard';
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { pets } = useApp();
+  const { pets, updatePet, deletePet } = useApp();
   const hasPets = pets.length > 0;
 
   // Typing effect state
@@ -95,41 +96,13 @@ export default function HomeScreen() {
       {/* Pets List */}
       <ScrollView className="flex-1 px-6" showsVerticalScrollIndicator={false}>
         {pets.map((pet) => (
-          <TouchableOpacity
+          <PetCard
             key={pet.id}
-            className="bg-white rounded-3xl p-6 mb-4 active:opacity-70"
-            onPress={() => handlePetClick(pet.id)}
-          >
-            <View className="flex-row items-center mb-3">
-              <View className={`w-20 h-20 rounded-full items-center justify-center mr-4 ${pet.type === 'dog' ? 'bg-sky-400' : 'bg-pink-400'
-                }`}>
-                {pet.type === 'dog' ? (
-                  <Image
-                    source={require('@/assets/images/icon-woof.png')}
-                    className="w-12 h-12"
-                    resizeMode="contain"
-                  />
-                ) : (
-                  <Image
-                    source={require('@/assets/images/icon-meow.png')}
-                    className="w-12 h-12"
-                    resizeMode="contain"
-                  />
-                )}
-              </View>
-              <View>
-                <Text className="text-gray-800 text-2xl font-semibold mb-1">
-                  {pet.name}
-                </Text>
-                <Text className="text-gray-500 text-base capitalize">
-                  {pet.type}
-                </Text>
-              </View>
-            </View>
-            <Text className="text-gray-500 text-sm">
-              Click to manage timers
-            </Text>
-          </TouchableOpacity>
+            pet={pet}
+            onPetClick={handlePetClick}
+            onUpdatePet={updatePet}
+            onDeletePet={deletePet}
+          />
         ))}
 
         {/* Add Another Pet Button */}

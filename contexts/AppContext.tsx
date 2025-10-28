@@ -21,6 +21,8 @@ interface AppContextType {
   pets: Pet[];
   timers: Timer[];
   addPet: (pet: Omit<Pet, 'id'>) => Pet;
+  updatePet: (id: string, updates: Partial<Pet>) => void;
+  deletePet: (id: string) => void;
   addTimer: (timer: Omit<Timer, 'id' | 'remainingSeconds' | 'isRunning'>) => void;
   updateTimer: (id: string, updates: Partial<Timer>) => void;
   deleteTimer: (id: string) => void;
@@ -41,6 +43,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     };
     setPets((prev) => [...prev, newPet]);
     return newPet;
+  };
+
+  const updatePet = (id: string, updates: Partial<Pet>) => {
+    setPets((prev) =>
+      prev.map((pet) => (pet.id === id ? { ...pet, ...updates } : pet))
+    );
+  };
+
+  const deletePet = (id: string) => {
+    setPets((prev) => prev.filter((pet) => pet.id !== id));
+    // Also delete all timers associated with this pet
+    setTimers((prev) => prev.filter((timer) => timer.petId !== id));
   };
 
   const addTimer = (timer: Omit<Timer, 'id' | 'remainingSeconds' | 'isRunning'>) => {
@@ -78,6 +92,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         pets,
         timers,
         addPet,
+        updatePet,
+        deletePet,
         addTimer,
         updateTimer,
         deleteTimer,
