@@ -25,6 +25,7 @@ interface AppContextType {
   updateTimer: (id: string, updates: Partial<Timer>) => void;
   deleteTimer: (id: string) => void;
   getTimersByPet: (petId: string) => Timer[];
+  resetAllData: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -66,6 +67,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return timers.filter((timer) => timer.petId === petId);
   };
 
+  const resetAllData = () => {
+    setPets([]);
+    setTimers([]);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -76,6 +82,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         updateTimer,
         deleteTimer,
         getTimersByPet,
+        resetAllData,
       }}
     >
       {children}
