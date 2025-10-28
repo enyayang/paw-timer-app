@@ -54,7 +54,7 @@ export const PetCard: React.FC<PetCardProps> = ({
     };
 
     return (
-        <View className="bg-white rounded-3xl p-6 mb-4 shadow-lg">
+        <View className="bg-white rounded-3xl p-6 mb-4">
             <View className="flex-row items-center mb-3">
                 <View className={`w-20 h-20 rounded-full items-center justify-center mr-4 ${pet.type === 'dog' ? 'bg-sky-400' : 'bg-pink-400'
                     }`}>
