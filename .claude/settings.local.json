@@ -3,7 +3,9 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(npx tailwindcss:*)",
-      "Read(//Users/enyayang/Desktop/**)"
+      "Read(//Users/enyayang/Desktop/**)",
+      "Bash(git push)",
+      "Bash(git fetch:*)"
     ],
     "deny": [],
     "ask": []
