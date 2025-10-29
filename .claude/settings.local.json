@@ -5,7 +5,9 @@
       "Bash(npx tailwindcss:*)",
       "Read(//Users/enyayang/Desktop/**)",
       "Bash(git push)",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Bash(git push:*)",
+      "Bash(git config:*)"
     ],
     "deny": [],
     "ask": []
