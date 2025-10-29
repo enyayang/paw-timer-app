@@ -1,8 +1,7 @@
 import { useApp } from '@/contexts/AppContext';
-import { ResizeMode, Video } from 'expo-av';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { PetCard } from '../../components/PetCard';
 
 export default function HomeScreen() {
@@ -49,15 +48,12 @@ export default function HomeScreen() {
           </Text>
         </View>
 
-        {/* Intro Video */}
+        {/* Intro Image */}
         <View className="w-full items-center justify-center px-0">
-          <Video
-            source={require('../../assets/images/video.mp4')}
+          <Image
+            source={require('../../assets/images/main-image.png')}
             style={{ width: '100%', height: 240, borderRadius: 24 }}
-            resizeMode={ResizeMode.CONTAIN}
-            shouldPlay
-            isLooping
-            isMuted
+            resizeMode="contain"
           />
         </View>
 
