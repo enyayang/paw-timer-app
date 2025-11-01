@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faTrashCan, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { Pet } from '../contexts/AppContext';
 
 interface PetCardProps {
@@ -116,13 +118,13 @@ export const PetCard: React.FC<PetCardProps> = ({
                                 onPress={handleEdit}
                                 className=" rounded-full w-8 h-8 items-center justify-center"
                             >
-                                <Text className="text-white text-sm">✏️</Text>
+                                <FontAwesomeIcon icon={faPencil} size={16} color="#9CA3AF" />
                             </TouchableOpacity>
                             <TouchableOpacity
                                 onPress={handleDelete}
                                 className=" rounded-full w-8 h-8 items-center justify-center"
                             >
-                                <Text className="text-white text-sm">🗑️</Text>
+                                <FontAwesomeIcon icon={faTrashCan} size={16} color="#9CA3AF" />
                             </TouchableOpacity>
                         </>
                     )}
