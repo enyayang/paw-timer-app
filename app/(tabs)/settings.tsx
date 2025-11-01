@@ -1,6 +1,7 @@
 import { useApp } from '@/contexts/AppContext';
 import { useRouter } from 'expo-router';
 import { Alert, Linking, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { APP_VERSION } from '@/constants/app';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -70,7 +71,7 @@ export default function SettingsScreen() {
               App Version
             </Text>
             <Text className="text-gray-500 text-sm mt-1">
-              Version 1.0.0
+              Version {APP_VERSION}
             </Text>
           </TouchableOpacity>
 
