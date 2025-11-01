@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface Pet {
   id: string;
@@ -30,11 +31,18 @@ interface AppContextType {
   resetAllData: () => void;
 }
 
+// Storage keys
+const STORAGE_KEYS = {
+  PETS: '@paw_timer_pets',
+  TIMERS: '@paw_timer_timers',
+};
+
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [pets, setPets] = useState<Pet[]>([]);
   const [timers, setTimers] = useState<Timer[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const addPet = (pet: Omit<Pet, 'id'>) => {
     const newPet: Pet = {
@@ -81,10 +89,63 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return timers.filter((timer) => timer.petId === petId);
   };
 
-  const resetAllData = () => {
+  const resetAllData = async () => {
     setPets([]);
     setTimers([]);
+    // Clear storage
+    try {
+      await Promise.all([
+        AsyncStorage.removeItem(STORAGE_KEYS.PETS),
+        AsyncStorage.removeItem(STORAGE_KEYS.TIMERS),
+      ]);
+    } catch (error) {
+      console.error('Error clearing storage:', error);
+    }
   };
+
+  // Load data from AsyncStorage on mount
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [petsData, timersData] = await Promise.all([
+          AsyncStorage.getItem(STORAGE_KEYS.PETS),
+          AsyncStorage.getItem(STORAGE_KEYS.TIMERS),
+        ]);
+
+        if (petsData) {
+          setPets(JSON.parse(petsData));
+        }
+
+        if (timersData) {
+          setTimers(JSON.parse(timersData));
+        }
+      } catch (error) {
+        console.error('Error loading data from storage:', error);
+      } finally {
+        setIsLoaded(true);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  // Save pets to AsyncStorage whenever they change
+  useEffect(() => {
+    if (isLoaded) {
+      AsyncStorage.setItem(STORAGE_KEYS.PETS, JSON.stringify(pets)).catch((error) =>
+        console.error('Error saving pets to storage:', error)
+      );
+    }
+  }, [pets, isLoaded]);
+
+  // Save timers to AsyncStorage whenever they change
+  useEffect(() => {
+    if (isLoaded) {
+      AsyncStorage.setItem(STORAGE_KEYS.TIMERS, JSON.stringify(timers)).catch((error) =>
+        console.error('Error saving timers to storage:', error)
+      );
+    }
+  }, [timers, isLoaded]);
 
   return (
     <AppContext.Provider

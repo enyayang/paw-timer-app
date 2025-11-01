@@ -13,7 +13,10 @@
       "Bash(npm start)",
       "Bash(lsof:*)",
       "Bash(kill:*)",
-      "Bash(npx expo start:*)"
+      "Bash(npx expo start:*)",
+      "Bash(nc:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []
