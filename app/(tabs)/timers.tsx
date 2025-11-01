@@ -1,35 +1,13 @@
 import { TimerCard } from '@/components/TimerCard';
 import { useApp } from '@/contexts/AppContext';
-import { Audio } from 'expo-av';
 import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 export default function TimersScreen() {
   const router = useRouter();
   const { timers, updateTimer, deleteTimer } = useApp();
-
-  // Play sound when timer completes
-  const playCompletionSound = async (petType: 'dog' | 'cat') => {
-    try {
-      const { sound } = await Audio.Sound.createAsync(
-        petType === 'dog'
-          ? require('@/assets/sounds/dog-bark.mp3')
-          : require('@/assets/sounds/cat-meow.mp3')
-      );
-      await sound.playAsync();
-      // Unload sound after playing
-      sound.setOnPlaybackStatusUpdate((status) => {
-        if (status.isLoaded && status.didJustFinish) {
-          sound.unloadAsync();
-        }
-      });
-    } catch (error) {
-      console.log('Error playing sound:', error);
-      // Silently fail if sound files are not found
-    }
-  };
 
   // Auto countdown for running timers
   useEffect(() => {
@@ -42,9 +20,6 @@ export default function TimersScreen() {
 
           // Check if timer just reached 0
           if (timer.remainingSeconds === 1) {
-            // Play sound based on timer's pet type
-            playCompletionSound(timer.petType);
-
             // Trigger 3-second haptic feedback when timer completes
             const vibrationPattern = async () => {
               for (let i = 0; i < 6; i++) {
@@ -102,6 +77,11 @@ export default function TimersScreen() {
       <ScrollView className="flex-1 px-6 pb-6" showsVerticalScrollIndicator={false}>
         {timers.length === 0 ? (
           <View className="flex-1 items-center justify-center py-20">
+            <Image
+              source={require('@/assets/images/icon-timers.png')}
+              style={{ width: 64, height: 64, marginBottom: 16 }}
+              resizeMode="contain"
+            />
             <Text className="text-gray-500 text-lg mb-2">No timers yet</Text>
             <Text className="text-gray-400 text-sm text-center px-8">
               Click "Add New Timer" below to create your first timer

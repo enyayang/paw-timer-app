@@ -1,5 +1,7 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 interface TimerCardProps {
     timer: {
@@ -71,7 +73,7 @@ export const TimerCard: React.FC<TimerCardProps> = ({
                     onPress={() => onDelete(timer.id)}
                     className="active:opacity-70"
                 >
-                    <Text className="text-gray-400 text-2xl">🗑️</Text>
+                    <FontAwesomeIcon icon={faTrashCan} size={20} color="#9CA3AF" />
                 </TouchableOpacity>
             </View>
 

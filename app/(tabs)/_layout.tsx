@@ -40,8 +40,8 @@ export default function TabLayout() {
                 width: 24,
                 height: 24,
                 tintColor: color,
-                resizeMode: 'contain'
               }}
+              resizeMode="contain"
             />
           ),
         }}
@@ -57,8 +57,8 @@ export default function TabLayout() {
                 width: 24,
                 height: 24,
                 tintColor: color,
-                resizeMode: 'contain'
               }}
+              resizeMode="contain"
             />
           ),
         }}
@@ -74,8 +74,8 @@ export default function TabLayout() {
                 width: 24,
                 height: 24,
                 tintColor: color,
-                resizeMode: 'contain'
               }}
+              resizeMode="contain"
             />
           ),
         }}
