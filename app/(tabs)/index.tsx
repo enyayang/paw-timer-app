@@ -1,32 +1,13 @@
 import { useApp } from '@/contexts/AppContext';
 import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import IndexSvg from '../../assets/index.svg';
 import { PetCard } from '../../components/PetCard';
 
 export default function HomeScreen() {
   const router = useRouter();
   const { pets, updatePet, deletePet } = useApp();
   const hasPets = pets.length > 0;
-
-  // Typing effect state
-  const [displayedText, setDisplayedText] = useState('');
-  const fullText = 'Paw Timer';
-  const typingSpeed = 150; // milliseconds per character
-
-  useEffect(() => {
-    let currentIndex = 0;
-    const timer = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setDisplayedText(fullText.slice(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(timer);
-      }
-    }, typingSpeed);
-
-    return () => clearInterval(timer);
-  }, []);
 
   const handlePetClick = (petId: string) => {
     // Navigate to timers tab with selected pet
@@ -41,11 +22,9 @@ export default function HomeScreen() {
   if (!hasPets) {
     return (
       <View className="flex-1 items-center justify-between bg-[#FEFBEF] px-8 py-16">
-        {/* Title */}
-        <View className="mt-28">
-          <Text className="text-2xl font-semibold text-gray-800 text-center">
-            {displayedText}
-          </Text>
+        {/* Logo SVG */}
+        <View className="w-full items-center justify-center px-4 mt-28">
+          <IndexSvg width="100%" height={80} />
         </View>
 
         {/* Intro Image */}
@@ -60,7 +39,7 @@ export default function HomeScreen() {
         {/* Tagline & Button */}
         <View className="w-full items-center gap-8">
           <Text className="text-xl text-gray-700 text-center">
-            Take a break with your pet — time to move and stretch!
+            Take a break with your pet —{'\n'}time to move and stretch!
           </Text>
 
           <TouchableOpacity
